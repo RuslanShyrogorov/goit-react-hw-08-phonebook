@@ -69,7 +69,7 @@ export function FormRegister() {
           component={RouterLink}
           to="/login"
           // underline="none"
-          sx={{ px: 1 }}
+          sx={{ fontWeight: 700, px: 1 }}
         >
           Click here
         </Link>
