@@ -83,7 +83,7 @@ export function FormAddContact() {
         type="submit"
         disabled={isLoading}
       >
-        {isLoading && <Loader />}
+        {isLoading && <Loader size="30" />}
         Add
       </Button>
     </Box>
