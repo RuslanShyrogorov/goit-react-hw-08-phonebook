@@ -1,5 +1,5 @@
 import { useState } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 
 import {
   AppBar,
@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 
 import MoreIcon from '@mui/icons-material/MoreVert';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+// import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
@@ -22,9 +22,12 @@ import { UserMenu } from 'components/UserMenu/UserMenu';
 import { Navigation } from 'components/Navigation/Navigation';
 
 import { useAuth } from 'hooks';
+import { useDispatch } from 'react-redux';
+import { logOut } from 'redux/auth/authOperations';
 
 export function Header() {
-  const { isLoggedIn } = useAuth();
+  const dispatch = useDispatch();
+  const { isLoggedIn, user } = useAuth();
 
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
@@ -55,37 +58,46 @@ export function Header() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      {/* <MenuItem>
         <IconButton size="large" aria-label="add contact" color="inherit">
           <PersonAddIcon />
         </IconButton>
         <p>Add contact</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton size="large" aria-label="login" color="inherit">
-          <LoginIcon />
-        </IconButton>
-        <p>LogIn</p>
-      </MenuItem>
+      </MenuItem> */}
 
-      <MenuItem>
-        <IconButton size="large" aria-label="logout" color="inherit">
-          <LogoutIcon />
-        </IconButton>
-        <p>LogOut</p>
-      </MenuItem>
-
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="signup"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AppRegistrationIcon />
-        </IconButton>
-        <p>Registration</p>
-      </MenuItem>
+      {isLoggedIn ? (
+        <>
+          <MenuItem>
+            <p>Hi, {user.name}</p>
+          </MenuItem>
+          <MenuItem onClick={() => dispatch(logOut())}>
+            <IconButton size="large" aria-label="logout" color="inherit">
+              <LogoutIcon />
+            </IconButton>
+            <p>LogOut</p>
+          </MenuItem>
+        </>
+      ) : (
+        <>
+          <MenuItem component={RouterLink} to="/login">
+            <IconButton size="large" aria-label="login" color="inherit">
+              <LoginIcon />
+            </IconButton>
+            <p>LogIn</p>
+          </MenuItem>
+          <MenuItem component={RouterLink} to="/register">
+            <IconButton
+              size="large"
+              aria-label="signup"
+              aria-haspopup="true"
+              color="inherit"
+            >
+              <AppRegistrationIcon />
+            </IconButton>
+            <p>Registration</p>
+          </MenuItem>
+        </>
+      )}
     </Menu>
   );
 
@@ -94,7 +106,7 @@ export function Header() {
       <AppBar position="fixed">
         <Toolbar>
           <Typography
-            sx={{ display: { xs: 'none', sm: 'block' } }}
+            // sx={{ display: { xs: 'none', sm: 'block' } }}
             variant="h6"
             noWrap
             fontWeight={700}
@@ -106,7 +118,8 @@ export function Header() {
 
           {isLoggedIn ? (
             <>
-              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              {/* <Box sx={{ display: { xs: 'none', md: 'flex' } }}> */}
+              <Box sx={{ display: 'flex' }}>
                 <Navigation />
               </Box>
 

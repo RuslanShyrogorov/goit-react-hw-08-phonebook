@@ -49,7 +49,14 @@ export function FormAddContact() {
       component="form"
       // display={'flex'}
       onSubmit={handlerAddContact}
-      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+      // sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+      sx={{
+        display: {
+          md: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
+      }}
     >
       <Typography
         variant="h5"
